@@ -89,7 +89,7 @@ function pipelineUtils() {
                             html.push(' triggered by ' + triggered);
                         }
 
-                        html.push(' started <span id="' + pipeline.id + '\">' + formatDate(pipeline.timestamp, lastUpdate) + '</span></h2>');
+                        html.push(' started <span id="' + pipeline.id + '\">' + formatDate(pipeline.timestamp) + '</span></h2>');
 
                         if (data.showTotalBuildTime) {
                             html.push('<h3>Total build time: ' + formatDuration(pipeline.totalBuildTime) + '</h3>');
@@ -148,7 +148,7 @@ function pipelineUtils() {
 
                             id = getTaskId(task.id, i);
 
-                            timestamp = formatDate(task.status.timestamp, lastUpdate);
+                            timestamp = formatDate(task.status.timestamp);
 
                             tasks.push({id: id, taskId: task.id, buildId: task.buildId});
 
@@ -262,7 +262,7 @@ function pipelineUtils() {
                     pipe = comp.pipelines[d];
                     head = document.getElementById(pipe.id);
                     if (head) {
-                        head.innerHTML = formatDate(pipe.timestamp, lastUpdate)
+                        head.innerHTML = formatDate(pipe.timestamp)
                     }
 
                     for (var l = 0; l < pipe.stages.length; l++) {
@@ -271,7 +271,7 @@ function pipelineUtils() {
                             ta = st.tasks[m];
                             time = document.getElementById(getTaskId(ta.id, d) + '.timestamp');
                             if (time) {
-                                time.innerHTML = formatDate(ta.status.timestamp, lastUpdate);
+                                time.innerHTML = formatDate(ta.status.timestamp);
                             }
                         }
                     }
@@ -523,8 +523,8 @@ function replace(string, replace, replaceWith) {
 }
 
 
-function formatDate(date, currentTime) {
-    return date != null ? moment(date, 'YYYY-MM-DDTHH:mm:ss').from(moment(currentTime, 'YYYY-MM-DDTHH:mm:ss')) : '';
+function formatDate(date) {
+    return date != null ? moment(date, 'YYYY-MM-DDTHH:mm:ss').format('lll') : '';
 }
 
 function formatDuration(millis) {
